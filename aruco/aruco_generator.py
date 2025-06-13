@@ -1,9 +1,9 @@
 import cv2
 import os
 
-aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
+aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
 
-marker_size = 200
+marker_size = 400
 marker_id_0 = 0
 marker_image_0 = cv2.aruco.generateImageMarker(aruco_dict, marker_id_0, marker_size)
 
