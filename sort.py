@@ -24,7 +24,15 @@ class KalmanBoxTracker:
         self.kf.R[2:,2:] *= 10.
         self.kf.P[4:,4:] *= 1000. # give high uncertainty to the unobservable initial velocities
         self.kf.P *= 10.
-        self.kf.Q = Q_discrete_white_noise(dim=7, dt=0.1, var=0.1)
+
+        dt = 0.1
+        q_std = 0.1
+        q_pos_vel = 0.5 * q_std * dt**2
+        q_vel = q_std * dt
+
+        self.kf.Q = np.diag([q_pos_vel**2, q_pos_vel**2, q_pos_vel**2,
+                             q_std**2,  # for aspect ratio (r)
+                             q_vel**2, q_vel**2, q_vel**2])
 
         self.kf.x[:4] = self.convert_bbox_to_z(bbox)
         self.time_since_update = 0
